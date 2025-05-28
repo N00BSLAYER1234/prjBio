@@ -1,0 +1,40 @@
+.scroll-hero {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background-color: #344157;
+}
+
+.scroll-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-text {
+  font-size: 10vw;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: url('../assets/images/Tuscany.jpg') no-repeat center;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: 10;
+  mix-blend-mode: screen;
+}
+
+.scroll-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 200%;
+  width: 100%;
+  background: url('../assets/images/Tuscany.jpg') center/cover no-repeat;
+  z-index: 0;
+  transform: translateY(0);
+  transition: transform 0.2s ease-out;
+}

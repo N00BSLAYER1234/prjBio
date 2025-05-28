@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contattaci | Biologika</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="js/cart.js" defer></script>
+  <script src="js/cartUtils.js" defer></script>
+  <script src="js/formValidation.js" defer></script>
+</head>
+<body class="bg-[#344157] text-white font-montserrat">
+  <!-- Header -->
+  <header class="bg-[#344157] shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
+      <a href="index.html">
+        <img src="assets/images/bee.png" alt="Biologika Logo" class="h-12 filter brightness-0 invert" />
+      </a>
+      <nav class="flex items-center space-x-6 text-sm font-medium uppercase tracking-wide">
+        <a href="index.html" class="hover:text-gray-300">Home</a>
+        <a href="products.html" class="hover:text-gray-300">Prodotti</a>
+        <a href="chi-siamo.html" class="hover:text-gray-300">Chi Siamo</a>
+        <a href="contact.html" class="text-white">Contatti</a>
+        <a href="cart.html" class="relative block">
+        <span class="material-icons text-white">shopping_cart</span>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+      </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contact Form Section -->
+  <main class="max-w-3xl mx-auto px-6 py-16">
+    <h2 class="text-4xl font-serif mb-4">Contattaci</h2>
+    <p class="text-gray-200 mb-8 text-lg">
+      Hai domande o suggerimenti? Compila il form e ti risponderemo al più presto.
+    </p>
+
+    <form id="contactForm" class="bg-white text-gray-800 p-8 rounded-lg shadow-lg space-y-6">
+      <div>
+        <label for="name" class="block text-sm font-semibold mb-2">Nome</label>
+        <input
+          type="text" id="name" required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#344157]" />
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-semibold mb-2">Email</label>
+        <input
+          type="email" id="email" required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#344157]" />
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-semibold mb-2">Messaggio</label>
+        <textarea
+          id="message" rows="5" required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#344157]"></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full inline-flex items-center justify-center px-6 py-3 bg-[#344157] text-white rounded-md font-medium hover:bg-[#2C2175] transition"
+      >
+        <span class="material-icons mr-2">send</span>
+        Invia Messaggio
+      </button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#344157] text-white py-6">
+    <div class="max-w-7xl mx-auto px-6 text-center text-sm">
+      &copy; 2025 Biologika. Tutti i diritti riservati.
+    </div>
+  </footer>
+</body>
+</html>

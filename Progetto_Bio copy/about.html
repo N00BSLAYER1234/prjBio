@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi Siamo | Biologika</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="js/cart.js" defer></script>
+  <script src="js/cartUtils.js" defer></script>
+</head>
+<body class="bg-[#344157] text-white font-montserrat">
+  <!-- Header -->
+  <header class="bg-[#344157] shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
+      <a href="index.html">
+        <img src="assets/images/bee.png" alt="Biologika Logo" class="h-12 filter brightness-0 invert" />
+      </a>
+      <nav class="flex items-center space-x-6 text-sm font-medium uppercase tracking-wide">
+        <a href="index.html" class="hover:text-gray-300">Home</a>
+        <a href="products.html" class="hover:text-gray-300">Prodotti</a>
+        <a href="about.html" class="text-white">Chi Siamo</a>
+        <a href="contact.html" class="hover:text-gray-300">Contatti</a>
+<a href="cart.html" class="relative inline-flex items-center">
+          <span class="material-icons text-white">shopping_cart</span>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- About Hero Section -->
+  <section class="relative h-screen overflow-hidden">
+    <div class="absolute inset-0">
+      <video autoplay muted loop playsinline class="w-full h-full object-cover">
+        <source src="assets/videos/chi-siamo-hero.mp4" type="video/mp4">
+        <!-- Fallback Image -->
+        <img src="assets/images/about-banner.jpg" alt="Biologika organic products" class="w-full h-full object-cover" />
+      </video>
+      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    </div>
+    <div class="relative z-10 flex items-center justify-center h-full">
+      <div class="text-center px-4">
+        <h1 class="text-5xl font-serif mb-4">La Nostra Storia</h1>
+        <p class="text-lg max-w-xl mx-auto">Da generazioni coltiviamo la terra con passione e rispetto per la natura. Biologika unisce sostenibilità, qualità e innovazione per portare sulla vostra tavola prodotti biologici dal sapore autentico.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team & Story Section -->
+  <main class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+    <section class="flex flex-col md:flex-row items-center gap-8">
+      <div class="md:w-1/2">
+        <img src="assets/images/about-team.jpg" alt="Il nostro team" class="w-full h-80 object-cover rounded-lg border-4 border-white transition-transform duration-300 hover:scale-105" />
+      </div>
+      <div class="md:w-1/2 space-y-6">
+        <h2 class="text-4xl font-serif">Chi Siamo</h2>
+        <p class="text-gray-200 leading-relaxed">
+          Siamo una cooperativa dedicata all’agricoltura biologica. Il nostro impegno parte dalla scelta dei semi fino alla consegna del prodotto, garantendo trasparenza e gusto in ogni fase.
+        </p>
+      </div>
+    </section>
+
+    <!-- Core Values Section -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white bg-opacity-10 p-8 rounded-lg flex flex-col items-center text-white group hover:bg-opacity-20 transition">
+        <i class="material-icons text-5xl mb-4">verified</i>
+        <h3 class="text-xl font-semibold mb-2">Qualità</h3>
+        <p class="text-center text-gray-200">Selezioniamo i migliori prodotti per offrirti eccellenza biologica.</p>
+      </div>
+      <div class="bg-white bg-opacity-10 p-8 rounded-lg flex flex-col items-center text-white group hover:bg-opacity-20 transition">
+        <i class="material-icons text-5xl mb-4">flash_on</i>
+        <h3 class="text-xl font-semibold mb-2">Freschezza</h3>
+        <p class="text-center text-gray-200">Dalla raccolta alla tua tavola in tempi rapidi.</p>
+      </div>
+      <div class="bg-white bg-opacity-10 p-8 rounded-lg flex flex-col items-center text-white group hover:bg-opacity-20 transition">
+        <i class="material-icons text-5xl mb-4">favorite</i>
+        <h3 class="text-xl font-semibold mb-2">Passione</h3>
+        <p class="text-center text-gray-200">La nostra dedizione nasce dall’amore per la natura.</p>
+      </div>
+    </section>
+  </main>
+
+ <div id="footer-placeholder"></div>
+<script src="js/footer.js" defer></script>
+  </footer>
+  
+</body>
+</html>
