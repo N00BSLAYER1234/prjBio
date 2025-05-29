@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prodotti | Biologika</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <script src="js/cart.js" defer></script>
+  <script src="js/cartUtils.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <style>
+    .fade-in {
+      animation: fadeIn 0.8s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .product-card {
+      background: #435470;
+      backdrop-filter: blur(10px);
+      border: 1px solid #435470;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border-color: #435470
+    }
+    
+    .category-title {
+      background: linear-gradient(135deg, #EDE4D1 15%, #d5ccba 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    
+    .hero-background {
+      background-color: #FFF8E1;
+    }
+    
+    .floating-elements::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      right: 10%;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #435470, 0%, transparent 60%);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .floating-elements::after {
+      content: '';
+      position: absolute;
+      bottom: 20%;
+      left: 15%;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #435470, 0%, transparent 60%);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.1); }
+    }
+    
+    .slide-up-panel {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.98) 100%);
+      backdrop-filter: blur(15px);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .add-to-cart-btn {
+      background: linear-gradient(135deg, #344157 0%, #344157 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .add-to-cart-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .add-to-cart-btn:hover::before {
+      left: 100%;
+    }
+    
+    .add-to-cart-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(52, 65, 87, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#344157] via-[#435470] to-[#52678a] text-white font-montserrat">
+  <!-- l header -->
+  <header class="bg-gradient-to-r from-[#344157]/90 to-[#435470]/90 backdrop-blur-md shadow-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="transform hover:scale-105 transition-transform duration-300">
+        <img src="assets/images/bee.png" alt="Biologika Logo" class="h-16 w-16 filter brightness-0 invert drop-shadow-lg" />
+      </a>
+      <nav class="flex items-center space-x-8 text-sm font-medium uppercase tracking-wider text-white">
+        <a href="index.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Home
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="products.html" class="text-white relative">
+          Prodotti
+          <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-white"></span>
+        </a>
+        <a href="about.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Chi Siamo
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Contatti
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="cart.html" class="relative inline-flex items-center hover:scale-110 transition-transform duration-300">
+          <span class="material-icons text-white">shopping_cart</span>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- l hero  -->
+  <section class="relative bg-cover bg-center bg-no-repeat py-24" style="background-image: linear-gradient(rgba(52, 65, 87, 0.7), rgba(52, 65, 87, 0.7)), url('assets/images/Marco_Simonini-7799.jpg');">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <div class="mb-8 fade-in">
+        <img src="assets/images/bee.png" alt="Biologika" class="h-32 w-32 mx-auto filter brightness-0 invert drop-shadow-2xl mb-6 transform hover:scale-110 transition-transform duration-500" />
+      </div>
+      <h1 class="text-6xl md:text-7xl font-playfair font-bold mb-6 category-title fade-in">
+        I Nostri Prodotti
+      </h1>
+      <div class="w-24 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-8 fade-in"></div>
+      <div class="max-w-4xl mx-auto">
+        <p class="text-xl md:text-2xl font-light leading-relaxed mb-8 text-gray-100 fade-in">
+          Scopri la nostra selezione di prodotti biologici certificati, coltivati con passione e rispetto per la natura.
+        </p>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 fade-in border border-white/20">
+          <h3 class="text-2xl font-playfair font-semibold mb-4 text-white">Qualità Biologica Garantita</h3>
+          <p class="text-lg text-gray-200 leading-relaxed">
+            Tutti i nostri prodotti sono <strong>certificati biologici</strong> e provengono da agricoltura sostenibile. 
+            Dalle fresche verdure di stagione alla frutta appena raccolta, dalle confetture artigianali al miele puro, 
+            ogni prodotto è selezionato con cura per garantire la massima qualità e genuinità. 
+            <span class="text-yellow-200 font-medium">Senza pesticidi, senza OGM, solo natura autentica</span> 
+            per la tua tavola e la tua famiglia.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- container prodotti -->
+  <main id="products-container" class="max-w-7xl mx-auto px-6 py-16 space-y-20"></main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // parte json
+      const products = await fetch('products.json').then(r => r.json());
+      const container = document.getElementById('products-container');
+
+      
+      const categories = {
+        frutta: 'Frutta Fresca',
+        verdura: 'Verdura di Stagione',
+        confetture: 'Confetture & Miele',
+        pane: 'Pane & Biscotti',
+        uova: 'Uova & Freschi'
+      };
+
+      // fa il loop
+      for (const key in categories) {
+        // filtra i prodotti 
+        const items = products.filter(p =>
+          p.category === key ||
+          (Array.isArray(p.category) && p.category.includes(key))
+        );
+        if (!items.length) continue;  
+
+        
+        const section = document.createElement('section');
+        section.className = 'py-16 fade-in';
+        section.innerHTML = `
+
+          <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+              <h2 class="text-5xl md:text-6xl font-playfair font-bold category-title mb-4">${categories[key]}</h2>
+              <div class="w-24 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              ${items.map(it => `
+                <div class="product-card rounded-2xl overflow-hidden relative group shadow-2xl">
+                  <div class="relative overflow-hidden">
+                    <img src="${it.image}" alt="${it.name}"
+                         class="w-full h-56 object-cover transition-all duration-500 group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+
+                  <!-- pannello slide -->
+                  <div class="absolute bottom-0 left-0 w-full slide-up-panel p-6 transform translate-y-full
+                              group-hover:translate-y-0 transition-all duration-500 ease-out">
+                    <h3 class="text-xl font-playfair font-semibold text-[#344157] mb-2">${it.name}</h3>
+                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">${it.description}</p>
+                    <div class="flex items-center justify-between mb-4">
+                      <span class="text-2xl font-bold text-[#2C2175]">€${it.price.toFixed(2)}</span>
+                      <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">BIO</span>
+                    </div>
+                    <button onclick="addToCart('${it.name}', ${it.price})"
+                            class="add-to-cart-btn w-full inline-flex items-center justify-center px-6 py-3 text-white rounded-xl font-medium text-sm shadow-lg">
+                      <span class="material-icons align-middle text-base mr-2">shopping_cart</span>
+                      Aggiungi al carrello
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        container.appendChild(section);
+      }
+
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(el);
+      });
+    });
+
+    if (typeof updateCartIndicator === 'function') {
+      updateCartIndicator();
+    }
+  </script>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/footer.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi Siamo | Biologika</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="js/cart.js" defer></script>
+  <script src="js/cartUtils.js" defer></script>
+  <style>
+    .fade-in {
+      animation: fadeIn 0.8s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, 
+        rgba(52, 65, 87, 0.95) 0%, 
+        rgba(44, 33, 117, 0.98) 50%, 
+        rgba(30, 41, 59, 0.95) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="80" cy="20" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.04"/><circle cx="30" cy="80" r="1" fill="%23ffffff" opacity="0.02"/><circle cx="70" cy="70" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    }
+    
+    .floating-elements::before {
+      content: '';
+      position: absolute;
+      top: 15%;
+      right: 10%;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .floating-elements::after {
+      content: '';
+      position: absolute;
+      bottom: 25%;
+      left: 15%;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.1); }
+    }
+    
+    .glass-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+    }
+    
+    .story-card {
+      background: linear-gradient(135deg, rgba(44, 33, 117, 0.9) 0%, rgba(52, 65, 87, 0.9) 100%);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+    }
+    
+    .story-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .title-gradient {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    
+    .video-overlay {
+      background: linear-gradient(135deg, 
+        rgba(44, 33, 117, 0.7) 0%, 
+        rgba(52, 65, 87, 0.8) 50%, 
+        rgba(30, 41, 59, 0.7) 100%);
+    }
+    
+    .parallax-scroll {
+      transform: translateZ(0);
+      will-change: transform;
+    }
+    
+    .icon-glow {
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+      transition: all 0.3s ease;
+    }
+    
+    .icon-glow:hover {
+      filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#344157] via-[#435470] to-[#52678a] text-white font-montserrat">
+  <!-- l header -->
+  <header class="bg-gradient-to-r from-[#344157]/90 to-[#435470]/90 backdrop-blur-md shadow-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="transform hover:scale-105 transition-transform duration-300">
+        <img src="assets/images/bee.png" alt="Biologika Logo" class="h-16 w-16 filter brightness-0 invert drop-shadow-lg" />
+      </a>
+      <nav class="flex items-center space-x-8 text-sm font-medium uppercase tracking-wider text-white">
+        <a href="index.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Home
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="products.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Prodotti
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="about.html" class="text-white relative">
+          Chi Siamo
+          <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-white"></span>
+        </a>
+        <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Contatti
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="cart.html" class="relative inline-flex items-center hover:scale-110 transition-transform duration-300">
+          <span class="material-icons text-white">shopping_cart</span>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- video hero  -->
+  <section class="relative overflow-hidden floating-elements">
+    <div class="absolute inset-0 h-screen">
+        <!-- imagine-->
+        <img src="assets/img for products/cover.jpg" alt="Biologika organic products" class="w-full h-full object-cover" />
+      </video>
+      <div class="absolute inset-0 video-overlay"></div>
+    </div>
+    <div class="relative z-10 flex items-center justify-center h-screen">
+      <div class="text-center px-6 max-w-5xl mx-auto">
+        <div class="mb-8 fade-in">
+          <img src="assets/images/bee.png" alt="Biologika" class="h-32 w-32 mx-auto filter brightness-0 invert drop-shadow-2xl mb-6 transform hover:scale-110 transition-transform duration-500" />
+        </div>
+        <h1 class="text-6xl md:text-7xl font-playfair font-bold mb-8 title-gradient fade-in">
+          La Nostra Storia
+        </h1>
+        <div class="w-24 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-8 fade-in"></div>
+        <div class="glass-card rounded-2xl p-8 md:p-12 fade-in">
+          <p class="text-xl md:text-2xl font-light leading-relaxed text-gray-100">
+            Da generazioni coltiviamo la terra con <span class="text-yellow-200 font-medium">passione e rispetto per la natura</span>. 
+            Biologika unisce sostenibilità, qualità e innovazione per portare sulla vostra tavola 
+            <span class="text-green-200 font-medium">prodotti biologici dal sapore autentico</span>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- il team -->
+  <main class="max-w-6xl mx-auto px-6 py-20 space-y-24">
+    <!-- chi siamo -->
+    <section class="flex flex-col lg:flex-row items-center gap-12 fade-in">
+      <div class="lg:w-1/2">
+        <div class="relative group">
+          <img src="assets/images/Image.jpg" alt="Il nostro team" 
+               class="w-full h-96 object-cover rounded-2xl shadow-2xl transition-all duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+      </div>
+      <div class="lg:w-1/2 space-y-8">
+        <h2 class="text-5xl md:text-6xl font-playfair font-bold title-gradient">Chi Siamo</h2>
+        <div class="w-16 h-1 bg-gradient-to-r from-white to-transparent"></div>
+        <div class="story-card rounded-2xl p-8">
+          <p class="text-lg text-gray-200 leading-relaxed mb-6">
+            Siamo una <strong class="text-white">cooperativa dedicata all'agricoltura biologica</strong>. 
+            Il nostro impegno parte dalla scelta dei semi fino alla consegna del prodotto, 
+            garantendo trasparenza e gusto in ogni fase.
+          </p>
+          <p class="text-lg text-gray-200 leading-relaxed">
+            La nostra missione è quella di <span class="text-green-200 font-medium">rispettare la terra e nutrire le famiglie</span> 
+            con prodotti genuini, coltivati secondo i più rigorosi standard biologici.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- la mission-->
+    <section class="text-center fade-in">
+      <div class="glass-card rounded-3xl p-12">
+        <h3 class="text-4xl font-playfair font-bold title-gradient mb-8">La Nostra Missione</h3>
+        <p class="text-xl text-gray-100 leading-relaxed max-w-4xl mx-auto">
+          Crediamo che il cibo debba essere più di semplice nutrimento. Deve essere un ponte tra la terra e la tavola, 
+          tra la tradizione e l'innovazione, tra il rispetto per l'ambiente e il benessere delle persone. 
+          <span class="text-yellow-200 font-medium">Ogni prodotto racconta una storia di cura, passione e sostenibilità</span>.
+        </p>
+      </div>
+    </section>
+
+    <!-- core values, non so come si traduca, poi cerca traduzione in italiano-->
+    <section class="fade-in">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl md:text-6xl font-playfair font-bold title-gradient mb-6">I Nostri Valori</h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass-card rounded-2xl p-8 text-center group">
+          <div class="icon-glow mb-6">
+            <i class="material-icons text-6xl text-green-300">verified</i>
+          </div>
+          <h3 class="text-2xl font-playfair font-semibold mb-4 text-white">Qualità Certificata</h3>
+          <p class="text-gray-200 leading-relaxed">
+            Selezioniamo i migliori prodotti per offrirti eccellenza biologica certificata. 
+            Ogni prodotto rispetta i più alti standard di qualità e genuinità.
+          </p>
+        </div>
+        
+        <div class="glass-card rounded-2xl p-8 text-center group">
+          <div class="icon-glow mb-6">
+            <i class="material-icons text-6xl text-blue-300">flash_on</i>
+          </div>
+          <h3 class="text-2xl font-playfair font-semibold mb-4 text-white">Freschezza Garantita</h3>
+          <p class="text-gray-200 leading-relaxed">
+            Dalla raccolta alla tua tavola in tempi rapidi. La freschezza è la nostra priorità 
+            per preservare sapore e proprietà nutritive.
+          </p>
+        </div>
+        
+        <div class="glass-card rounded-2xl p-8 text-center group">
+          <div class="icon-glow mb-6">
+            <i class="material-icons text-6xl text-red-300">favorite</i>
+          </div>
+          <h3 class="text-2xl font-playfair font-semibold mb-4 text-white">Passione Autentica</h3>
+          <p class="text-gray-200 leading-relaxed">
+            La nostra dedizione nasce dall'amore per la natura e dal desiderio di condividere 
+            i frutti della terra con rispetto e gratitudine.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- sostenibilita-->
+    <section class="fade-in">
+      <div class="story-card rounded-3xl p-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-4xl font-playfair font-bold title-gradient mb-6">Sostenibilità Ambientale</h3>
+            <div class="w-16 h-1 bg-gradient-to-r from-green-400 to-transparent mb-6"></div>
+            <p class="text-lg text-gray-200 leading-relaxed mb-6">
+              Il nostro impegno per l'ambiente va oltre la certificazione biologica. Utilizziamo 
+              tecniche di agricoltura rigenerativa, riduciamo l'uso di risorse idriche e 
+              promuoviamo la biodiversità nei nostri campi.
+            </p>
+            <ul class="space-y-3 text-gray-200">
+              <li class="flex items-center">
+                <i class="material-icons text-green-400 mr-3">eco</i>
+                Zero pesticidi e fertilizzanti chimici
+              </li>
+              <li class="flex items-center">
+                <i class="material-icons text-blue-400 mr-3">water_drop</i>
+                Gestione sostenibile delle risorse idriche
+              </li>
+              <li class="flex items-center">
+                <i class="material-icons text-yellow-400 mr-3">wb_sunny</i>
+                Energia rinnovabile nei processi produttivi
+              </li>
+            </ul>
+          </div>
+          <div class="relative">
+            <div class="w-full h-80 bg-gradient-to-br from-green-400/20 to-blue-400/20 rounded-2xl flex items-center justify-center">
+              <i class="material-icons text-8xl text-green-300 opacity-50">nature_people</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/footer.js" defer></script>
+
+  <script>
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(el);
+      });
+
+      // indicatore carelo 
+      if (typeof updateCartIndicator === 'function') {
+        updateCartIndicator();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Il tuo Carrello | Biologika</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="js/cart.js" defer></script>
+  <style>
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+    
+    .animated-bg {
+      background: linear-gradient(-45deg, #1a202c, #2d3748, #4a5568, #2b6cb0);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .shape {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+    
+    .shape:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      left: 15%;
+      animation-delay: 0s;
+      animation-duration: 25s;
+    }
+    
+    .shape:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      left: 80%;
+      animation-delay: 5s;
+      animation-duration: 30s;
+    }
+    
+    .shape:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      left: 60%;
+      animation-delay: 10s;
+      animation-duration: 22s;
+    }
+    
+    .shape:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      left: 30%;
+      animation-delay: 15s;
+      animation-duration: 28s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .cart-item {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .cart-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-danger {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(0, 184, 148, 0.4);
+    }
+    
+    .quantity-control {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+    
+    .quantity-control:hover {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .empty-cart-illustration {
+      opacity: 0.7;
+      animation: float-gentle 3s ease-in-out infinite;
+    }
+    
+    @keyframes float-gentle {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    .fade-in-delay-1 { animation-delay: 0.2s; }
+    .fade-in-delay-2 { animation-delay: 0.4s; }
+    .fade-in-delay-3 { animation-delay: 0.6s; }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .summary-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .progress-bar {
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      height: 4px;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body class="animated-bg text-white font-montserrat min-h-screen relative">
+  <!-- Floating Background Shapes -->
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <!-- Header -->
+ <body class="bg-gradient-to-br from-[#344157] via-[#435470] to-[#52678a] text-white font-montserrat">
+  <!-- l header -->
+  <header class="bg-gradient-to-r from-[#344157]/90 to-[#435470]/90 backdrop-blur-md shadow-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="transform hover:scale-105 transition-transform duration-300">
+        <img src="assets/images/bee.png" alt="Biologika Logo" class="h-16 w-16 filter brightness-0 invert drop-shadow-lg" />
+      </a>
+      <nav class="flex items-center space-x-8 text-sm font-medium uppercase tracking-wider text-white">
+        <a href="index.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Home
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="products.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Prodotti
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="about.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Chi Siamo
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Contatti
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="cart.html" class="relative inline-flex items-center hover:scale-110 transition-transform duration-300">
+          <span class="material-icons text-white">shopping_cart</span>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg">0</span>
+        </a>
+        <button onclick="toggleMenu()" class="text-xl">&#9776;</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- hero sec -->
+  <section class="relative z-10 pt-20 pb-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center fade-in">
+        <span class="material-icons text-6xl text-blue-300 mb-6 block">shopping_cart</span>
+        <h1 class="text-5xl md:text-6xl font-playfair font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent">
+          Il Tuo Carrello
+        </h1>
+        <p class="text-xl text-gray-200 font-light">
+          Rivedi i tuoi prodotti biologici selezionati
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- content del carello -->
+  <main class="relative z-10 max-w-6xl mx-auto px-6 pb-20">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <!-- items al suo inerno -->
+      <div class="lg:col-span-2">
+        <div class="glass-card rounded-3xl p-8 fade-in fade-in-delay-1">
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-playfair font-bold text-gray-800">Prodotti nel Carrello</h2>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="material-icons text-sm">inventory</span>
+              <span id="items-count">0 articoli</span>
+            </div>
+          </div>
+          
+          <!-- item container -->
+          <div id="cart-items" class="space-y-6">
+           
+          </div>
+          
+          <!-- cart vuoto -->
+          <div id="empty-cart-state" class="text-center py-16 hidden">
+            <div class="empty-cart-illustration mb-8">
+              <span class="material-icons text-8xl text-gray-400">shopping_cart</span>
+            </div>
+            <h3 class="text-2xl font-playfair font-bold text-gray-600 mb-4">Il tuo carrello è vuoto</h3>
+            <p class="text-gray-500 mb-8">Scopri i nostri prodotti biologici di qualità</p>
+            <a href="products.html" class="btn-primary inline-flex items-center px-8 py-3 rounded-xl text-white font-semibold">
+              <span class="material-icons mr-2">storefront</span>
+              Vai ai Prodotti
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- riepiilogo -->
+      <div class="lg:col-span-1">
+        <div class="summary-card rounded-3xl p-8 sticky top-8 fade-in fade-in-delay-2">
+          <h3 class="text-xl font-playfair font-bold text-gray-800 mb-6">Riepilogo Ordine</h3>
+          
+          <!-- barra progresso per spedizione -->
+          <div class="mb-6 p-4 bg-blue-50 rounded-xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium text-gray-700">Spedizione gratuita da €50</span>
+              <span class="material-icons text-green-500 text-sm">local_shipping</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div id="shipping-progress" class="progress-bar w-0"></div>
+            </div>
+            <p id="shipping-message" class="text-xs text-gray-600 mt-2">Aggiungi €50.00 per la spedizione gratuita</p>
+          </div>
+          
+          <!-- prezzo  -->
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between text-gray-700">
+              <span>Subtotale</span>
+              <span id="subtotal">€0.00</span>
+            </div>
+            <div class="flex justify-between text-gray-700">
+              <span>Spedizione</span>
+              <span id="shipping-cost">€5.90</span>
+            </div>
+            <div class="flex justify-between text-gray-700">
+              <span>IVA (22%)</span>
+              <span id="vat">€0.00</span>
+            </div>
+            <hr class="border-gray-300">
+            <div class="flex justify-between text-xl font-bold text-gray-800">
+              <span>Totale</span>
+              <span id="total-price">€0.00</span>
+            </div>
+          </div>
+          
+          <!-- btn action -->
+          <div class="space-y-4">
+            <button id="checkout-btn" onclick="checkout()" class="w-full btn-success flex items-center justify-center px-6 py-4 rounded-xl text-white font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+              <span class="material-icons mr-2">credit_card</span>
+              Procedi al Checkout
+            </button>
+            
+            <button id="empty-cart-btn" onclick="emptyCart()" class="w-full btn-danger flex items-center justify-center px-6 py-3 rounded-xl text-white font-medium">
+              <span class="material-icons mr-2">delete_sweep</span>
+              Svuota Carrello
+            </button>
+            
+            <a href="products.html" class="w-full btn-primary flex items-center justify-center px-6 py-3 rounded-xl text-white font-medium">
+              <span class="material-icons mr-2">add_shopping_cart</span>
+              Continua gli Acquisti
+            </a>
+          </div>
+          
+          <!-- badge -->
+          <div class="mt-6 p-4 bg-green-50 rounded-xl">
+            <div class="flex items-center text-green-800">
+              <span class="material-icons mr-2 text-sm">security</span>
+              <span class="text-xs font-medium">Pagamento sicuro SSL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- prodotti raccomandati stat -->
+  <section class="relative z-10 py-16 bg-white/5 backdrop-blur-sm">
+    <div class="max-w-6xl mx-auto px-6">
+      <h3 class="text-2xl font-playfair font-bold text-center mb-12">Prodotti Consigliati</h3>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/15 transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="material-icons text-white">eco</span>
+          </div>
+          <h4 class="font-semibold mb-2">Miele Biologico</h4>
+          <p class="text-gray-300 text-sm mb-4">100% naturale</p>
+          <button class="px-4 py-2 bg-white/20 rounded-lg text-sm hover:bg-white/30 transition-colors">
+            Aggiungi €12.90
+          </button>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/15 transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="material-icons text-white">local_florist</span>
+          </div>
+          <h4 class="font-semibold mb-2">Tisana Relax</h4>
+          <p class="text-gray-300 text-sm mb-4">Erbe certificate</p>
+          <button class="px-4 py-2 bg-white/20 rounded-lg text-sm hover:bg-white/30 transition-colors">
+            Aggiungi €8.50
+          </button>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/15 transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="material-icons text-white">spa</span>
+          </div>
+          <h4 class="font-semibold mb-2">Olio Essenziale</h4>
+          <p class="text-gray-300 text-sm mb-4">Lavanda pura</p>
+          <button class="px-4 py-2 bg-white/20 rounded-lg text-sm hover:bg-white/30 transition-colors">
+            Aggiungi €15.90
+          </button>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/15 transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="material-icons text-white">local_pharmacy</span>
+          </div>
+          <h4 class="font-semibold mb-2">Integratore Bio</h4>
+          <p class="text-gray-300 text-sm mb-4">Vitamine naturali</p>
+          <button class="px-4 py-2 bg-white/20 rounded-lg text-sm hover:bg-white/30 transition-colors">
+            Aggiungi €24.90
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="relative z-10 bg-black/20 backdrop-blur-md text-white py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <img src="assets/images/bee.png" alt="Biologika Logo" class="h-10 filter brightness-0 invert mb-4" />
+          <p class="text-gray-300 text-sm leading-relaxed">
+            La tua fonte di prodotti biologici di qualità superiore, direttamente dalla natura alla tua tavola.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Link Rapidi</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+            <li><a href="products.html" class="text-gray-300 hover:text-white transition-colors">Prodotti</a></li>
+            <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">Chi Siamo</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contatti</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Supporto</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li class="flex items-center"><span class="material-icons text-sm mr-2">help</span>FAQ</li>
+            <li class="flex items-center"><span class="material-icons text-sm mr-2">local_shipping</span>Spedizioni</li>
+            <li class="flex items-center"><span class="material-icons text-sm mr-2">keyboard_return</span>Resi</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Seguici</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <span class="material-icons text-sm">facebook</span>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <span class="material-icons text-sm">camera_alt</span>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <span class="material-icons text-sm">email</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-8 text-center text-sm text-gray-400">
+        <p>&copy; 2025 Biologika. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+<script src="js/cartUtils.js"></script>
+  <script>
+
+    
+    // sample del carello
+    let cartItems = [
+      {
+        id: 1,
+        name: "Miele di Acacia Biologico",
+        price: 12.90,
+        quantity: 2,
+        image: "assets/images/honey.jpg",
+        description: "Miele puro di acacia da apicoltura biologica"
+      },
+      {
+        id: 2,
+        name: "Tisana Rilassante Bio",
+        price: 8.50,
+        quantity: 1,
+        image: "assets/images/tea.jpg",
+        description: "Miscela di erbe biologiche per il relax"
+      }
+    ];
+
+    function renderCartItems() {
+      const cartContainer = document.getElementById('cart-items');
+      const emptyState = document.getElementById('empty-cart-state');
+      
+      if (cartItems.length === 0) {
+        cartContainer.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        document.getElementById('checkout-btn').disabled = true;
+        updateSummary();
+        return;
+      }
+      
+      emptyState.classList.add('hidden');
+      document.getElementById('checkout-btn').disabled = false;
+      
+      cartContainer.innerHTML = cartItems.map(item => `
+        <div class="cart-item rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6">
+          <div class="w-24 h-24 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <span class="material-icons text-3xl text-green-600">eco</span>
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">${item.name}</h3>
+            <p class="text-gray-600 text-sm mb-3">${item.description}</p>
+            <p class="text-xl font-bold text-gray-800">€${item.price.toFixed(2)}</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center bg-white rounded-xl border-2 border-gray-200">
+              <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" class="p-2 hover:bg-gray-100 rounded-l-xl">
+                <span class="material-icons text-gray-600">remove</span>
+              </button>
+              <span class="px-4 py-2 font-semibold text-gray-800">${item.quantity}</span>
+              <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" class="p-2 hover:bg-gray-100 rounded-r-xl">
+                <span class="material-icons text-gray-600">add</span>
+              </button>
+            </div>
+            <button onclick="removeItem(${item.id})" class="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors">
+              <span class="material-icons">delete</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+      
+      updateSummary();
+    }
+
+    function updateQuantity(itemId, newQuantity) {
+      if (newQuantity <= 0) {
+        removeItem(itemId);
+        return;
+      }
+      
+      const item = cartItems.find(item => item.id === itemId);
+      if (item) {
+        item.quantity = newQuantity;
+        renderCartItems();
+      }
+    }
+
+    function removeItem(itemId) {
+      cartItems = cartItems.filter(item => item.id !== itemId);
+      renderCartItems();
+    }
+
+    function updateSummary() {
+      const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const shippingCost = subtotal >= 50 ? 0 : 5.90;
+      const vat = (subtotal + shippingCost) * 0.22;
+      const total = subtotal + shippingCost + vat;
+      
+      document.getElementById('subtotal').textContent = `€${subtotal.toFixed(2)}`;
+      document.getElementById('shipping-cost').textContent = shippingCost === 0 ? 'Gratuita' : `€${shippingCost.toFixed(2)}`;
+      document.getElementById('vat').textContent = `€${vat.toFixed(2)}`;
+      document.getElementById('total-price').textContent = `€${total.toFixed(2)}`;
+      
+      // udate dei proodotti
+      const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('items-count').textContent = `${totalItems} articol${totalItems !== 1 ? 'i' : 'o'}`;
+      document.getElementById('cart-count').textContent = totalItems;
+      
+      // lo stato spedizione - da rivedere assolutamente
+      const progressPercent = Math.min((subtotal / 50) * 100, 100);
+      document.getElementById('shipping-progress').style.width = `${progressPercent}%`;
+      
+      const remainingForFreeShipping = Math.max(50 - subtotal, 0);
+      const shippingMessage = document.getElementById('shipping-message');
+      if (remainingForFreeShipping > 0) {
+        shippingMessage.textContent = `Aggiungi €${remainingForFreeShipping.toFixed(2)} per la spedizione gratuita`;
+        shippingMessage.className = 'text-xs text-gray-600 mt-2';
+      } else {
+        shippingMessage.textContent = 'Complimenti! Hai la spedizione gratuita!';
+        shippingMessage.className = 'text-xs text-green-600 mt-2 font-semibold';
+      }
+    }
+
+    function emptyCart() {
+      if (confirm('Sei sicuro di voler svuotare il carrello?')) {
+        cartItems = [];
+        renderCartItems();
+      }
+
+    }
+  
+    

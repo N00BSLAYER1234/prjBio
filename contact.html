@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contattaci | Biologika</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="js/cart.js" defer></script>
+  <script src="js/cartUtils.js" defer></script>
+  <script src="js/formValidation.js" defer></script>
+  <style>
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+    
+    .animated-bg {
+      background: linear-gradient(-45deg, #1a202c, #2d3748, #4a5568, #2b6cb0);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .shape {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+    
+    .shape:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 25s;
+    }
+    
+    .shape:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      left: 85%;
+      animation-delay: 5s;
+      animation-duration: 30s;
+    }
+    
+    .shape:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      left: 70%;
+      animation-delay: 10s;
+      animation-duration: 22s;
+    }
+    
+    .shape:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      left: 20%;
+      animation-delay: 15s;
+      animation-duration: 28s;
+    }
+    
+    .shape:nth-child(5) {
+      width: 90px;
+      height: 90px;
+      left: 60%;
+      animation-delay: 7s;
+      animation-duration: 26s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .form-glow:focus {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), 0 0 20px rgba(59, 130, 246, 0.1);
+    }
+    
+    .contact-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .contact-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    .fade-in-delay-1 { animation-delay: 0.2s; }
+    .fade-in-delay-2 { animation-delay: 0.4s; }
+    .fade-in-delay-3 { animation-delay: 0.6s; }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .icon-bounce {
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+  </style>
+</head>
+<body class="animated-bg text-white font-montserrat min-h-screen relative">
+  <!-- Floating Background Shapes -->
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <!-- Header -->
+ <body class="bg-gradient-to-br from-[#344157] via-[#435470] to-[#52678a] text-white font-montserrat">
+  <!-- l header -->
+  <header class="bg-gradient-to-r from-[#344157]/90 to-[#435470]/90 backdrop-blur-md shadow-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="transform hover:scale-105 transition-transform duration-300">
+        <img src="assets/images/bee.png" alt="Biologika Logo" class="h-16 w-16 filter brightness-0 invert drop-shadow-lg" />
+      </a>
+      <nav class="flex items-center space-x-8 text-sm font-medium uppercase tracking-wider text-white">
+        <a href="index.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Home
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="products.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Prodotti
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="about.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Chi Siamo
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300 relative group">
+          Contatti
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="cart.html" class="relative inline-flex items-center hover:scale-110 transition-transform duration-300">
+          <span class="material-icons text-white">shopping_cart</span>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg">0</span>
+        </a>
+        <button onclick="toggleMenu()" class="text-xl">&#9776;</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- l hero -->
+  <section class="relative z-10 pt-20 pb-12">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="fade-in">
+        <span class="material-icons text-6xl text-blue-300 icon-bounce mb-6 block">mail_outline</span>
+        <h1 class="text-5xl md:text-6xl font-playfair font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent">
+          Contattaci
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-200 font-light leading-relaxed max-w-3xl mx-auto">
+          Hai domande sui nostri prodotti biologici? Vuoi ricevere consigli personalizzati? 
+          <span class="text-blue-300 font-medium">Siamo qui per aiutarti</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- cards contatti -->
+  <section class="relative z-10 py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 mb-16">
+        <div class="contact-card p-8 rounded-2xl text-center fade-in fade-in-delay-1">
+          <span class="material-icons text-4xl text-blue-300 mb-4 block">location_on</span>
+          <h3 class="text-xl font-semibold mb-2">Indirizzo</h3>
+          <p class="text-gray-300">Corso Miao miao 123<br>10100 Torino, Italia</p>
+        </div>
+        
+        <div class="contact-card p-8 rounded-2xl text-center fade-in fade-in-delay-2">
+          <span class="material-icons text-4xl text-green-300 mb-4 block">phone</span>
+          <h3 class="text-xl font-semibold mb-2">Telefono</h3>
+          <p class="text-gray-300">+39 011 123 4567<br>Lun-Ven 9:00-18:00</p>
+        </div>
+        
+        <div class="contact-card p-8 rounded-2xl text-center fade-in fade-in-delay-3">
+          <span class="material-icons text-4xl text-purple-300 mb-4 block">email</span>
+          <h3 class="text-xl font-semibold mb-2">Email</h3>
+          <p class="text-gray-300">miao@biologika.it<br>Risposta entro 24h</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- form contatti  -->
+  <main class="relative z-10 pb-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="glass-card p-12 rounded-3xl fade-in">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-playfair font-bold text-gray-800 mb-4">
+            Invia un Messaggio
+          </h2>
+          <p class="text-gray-600 text-lg">
+            Compila il form sottostante e ti risponderemo al più presto
+          </p>
+        </div>
+
+        <form id="contactForm" class="space-y-8">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
+                <span class="material-icons text-sm align-middle mr-2">person</span>
+                Nome Completo
+              </label>
+              <input
+                type="text" id="name" required
+                class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 form-glow transition-all duration-300 text-gray-800 placeholder-gray-400"
+                placeholder="Il tuo nome" />
+            </div>
+
+            <div class="space-y-2">
+              <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                <span class="material-icons text-sm align-middle mr-2">email</span>
+                Email
+              </label>
+              <input
+                type="email" id="email" required
+                class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 form-glow transition-all duration-300 text-gray-800 placeholder-gray-400"
+                placeholder="la-tua@email.com" />
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">
+              <span class="material-icons text-sm align-middle mr-2">subject</span>
+              Oggetto
+            </label>
+            <input
+              type="text" id="subject" required
+              class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 form-glow transition-all duration-300 text-gray-800 placeholder-gray-400"
+              placeholder="Di cosa vorresti parlare?" />
+          </div>
+
+          <div class="space-y-2">
+            <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">
+              <span class="material-icons text-sm align-middle mr-2">message</span>
+              Messaggio
+            </label>
+            <textarea
+              id="message" rows="6" required
+              class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 form-glow transition-all duration-300 text-gray-800 placeholder-gray-400 resize-none"
+              placeholder="Scrivi qui il tuo messaggio..."></textarea>
+          </div>
+
+          <div class="flex items-center space-x-3 text-gray-600">
+            <input type="checkbox" id="privacy" required class="w-5 h-5 text-blue-600 rounded">
+            <label for="privacy" class="text-sm">
+              Accetto la <a href="#" class="text-blue-600 hover:underline">privacy policy</a> e autorizzo il trattamento dei miei dati
+            </label>
+          </div>
+
+          <div class="text-center pt-4">
+            <button
+              type="submit"
+              class="btn-primary inline-flex items-center justify-center px-12 py-4 text-white rounded-xl font-semibold text-lg shadow-xl relative overflow-hidden"
+            >
+              <span class="material-icons mr-3">send</span>
+              Invia Messaggio
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- info in piu-->
+  <section class="relative z-10 py-16 bg-white/5 backdrop-blur-sm">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h3 class="text-2xl font-playfair font-bold mb-8">Perché Scegliere Biologika?</h3>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="space-y-4">
+          <span class="material-icons text-4xl text-green-400">eco</span>
+          <h4 class="font-semibold">100% Biologico</h4>
+          <p class="text-gray-300 text-sm">Prodotti certificati e naturali</p>
+        </div>
+        <div class="space-y-4">
+          <span class="material-icons text-4xl text-blue-400">local_shipping</span>
+          <h4 class="font-semibold">Spedizione Veloce</h4>
+          <p class="text-gray-300 text-sm">Consegna in 24-48 ore</p>
+        </div>
+        <div class="space-y-4">
+          <span class="material-icons text-4xl text-purple-400">support_agent</span>
+          <h4 class="font-semibold">Supporto Dedicato</h4>
+          <p class="text-gray-300 text-sm">Assistenza personalizzata</p>
+        </div>
+        <div class="space-y-4">
+          <span class="material-icons text-4xl text-yellow-400">verified</span>
+          <h4 class="font-semibold">Qualità Garantita</h4>
+          <p class="text-gray-300 text-sm">Soddisfatti o rimborsati</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="relative z-10 bg-black/20 backdrop-blur-md text-white py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <img src="assets/images/bee.png" alt="Biologika Logo" class="h-10 filter brightness-0 invert mb-4" />
+          <p class="text-gray-300 text-sm leading-relaxed">
+            La tua fonte di prodotti biologici di qualità superiore, direttamente dalla natura alla tua tavola.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Link Rapidi</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+            <li><a href="products.html" class="text-gray-300 hover:text-white transition-colors">Prodotti</a></li>
+            <li><a href="chi-siamo.html" class="text-gray-300 hover:text-white transition-colors">Chi Siamo</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contatti</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Contatti</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li class="flex items-center"><span class="material-icons text-sm mr-2">location_on</span>Corso Miao Miao, 123 Torino</li>
+            <li class="flex items-center"><span class="material-icons text-sm mr-2">phone</span>+39 011 123 4567</li>
+            <li class="flex items-center"><span class="material-icons text-sm mr-2">email</span>miao@biologika.it</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Seguici</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <span class="material-icons text-sm">facebook</span>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <span class="material-icons text-sm">camera_alt</span>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <span class="material-icons text-sm">email</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-8 text-center text-sm text-gray-400">
+        <p>&copy; 2025 Biologika. Tutti i diritti riservati a Ramon </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      const privacy = document.getElementById('privacy').checked;
+      
+      if (!privacy) {
+        alert('Devi accettare la privacy policy per continuare.');
+        return;
+      }
+      
+      // simulazione invio
+      const button = e.target.querySelector('button[type="submit"]');
+      const originalText = button.innerHTML;
+      
+      button.innerHTML = '<span class="material-icons animate-spin mr-3">refresh</span>Invio in corso...';
+      button.disabled = true;
+      
+      setTimeout(() => {
+        button.innerHTML = '<span class="material-icons mr-3">check_circle</span>Messaggio Inviato!';
+        button.className = button.className.replace('btn-primary', 'bg-green-500 hover:bg-green-600');
+        
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.disabled = false;
+          button.className = button.className.replace('bg-green-500 hover:bg-green-600', 'btn-primary');
+          document.getElementById('contactForm').reset();
+        }, 3000);
+      }, 2000);
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // inizialzza contatatore 
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof updateCartCount === 'function') {
+        updateCartCount();
+      }
+    });
+  </script>
+  <script src="js/cartUtils.js"></script>
+</body>
+</html>

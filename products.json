@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Mirtilli Freschi",
+    "description": "Dolci mirtilli raccolti a mano nei campi della Valtellina.",
+    "price": 8.99,
+    "category": "frutta",
+    "image": "assets/img for products/mirtilli.jpg",
+    "season": ["may", "june", "july"],
+    "unit": "250g",
+    "origin": "Lombardia, Italia",
+    "availability": true
+  },
+  {
+    "id": 2,
+    "name": "Zucchine di stagione",
+    "description": "Zucchine verdi freschissime coltivate in modo naturale.",
+    "price": 3.49,
+    "category": "verdura",
+    "image": "assets/img for products/zucchine.jpg",
+    "season": ["june", "july", "august"],
+    "unit": "500g",
+    "origin": "Toscana, Italia",
+    "availability": true
+  },
+  {
+    "id": 3,
+    "name": "Confettura di fragole",
+    "description": "Confettura extra di fragole realizzata con frutta matura.",
+    "price": 4.99,
+    "category": "confetture",
+    "image": "assets/img for products/confettura.jpg",
+    "season": ["all"],
+    "unit": "350g",
+    "origin": "Emilia-Romagna, Italia",
+    "availability": true
+  },
+  {
+    "id": 4,
+    "name": "Uova Fresche",
+    "description": "Uova fresche da galline allevate al pascolo",
+    "price": 6.50,
+    "category": "uova",
+    "image": "assets/img for products/uova.jpg",
+    "season": ["all"],
+    "unit": "12 uova",
+    "origin": "Umbria, Italia",
+    "availability": true
+  },
+  {
+    "id": 5,
+    "name": "Pane Integrale",
+    "description": "Pane integrale con lievitazione naturale, croccante fuori e soffice dentro.",
+    "price": 4.20,
+    "category": "biscotti",
+    "image": "assets/img for products/pane.jpg",
+    "season": ["all"],
+    "unit": "500g",
+    "origin": "Piemonte, Italia",
+    "availability": false
+  },
+  {
+    "id": 6,
+    "name": "Miele di Acacia",
+    "description": "Miele delicato prodotto dalle api nei boschi dell'Appennino.",
+    "price": 7.99,
+    "category": "confetture",
+    "image": "assets/img for products/Smielatura 2022.jpg",
+    "season": ["all"],
+    "unit": "250g",
+    "origin": "Abruzzo, Italia",
+    "availability": true
+  },
+  {
+    "id": 7,
+    "name": "Ciliegie Fresche",
+    "description": "Ciliegie dolci e succose, appena raccolte.",
+    "price": 6.99,
+    "category": "frutta",
+    "image": "assets/img for products/ciiligie.jpg",
+    "season": ["may", "june"],
+    "unit": "300g",
+    "origin": "Veneto, Italia",
+    "availability": true
+  },
+  {
+    "id": 8,
+    "name": "Biscotti alla Lavanda",
+    "description": "Biscotti artigianali al profumo di lavanda.",
+    "price": 5.80,
+    "category": "biscotti",
+    "image": "assets/img for products/biscotti.jpg",
+    "season": ["all"],
+    "unit": "200g",
+    "origin": "Liguria, Italia",
+    "availability": true
+  }
+]
